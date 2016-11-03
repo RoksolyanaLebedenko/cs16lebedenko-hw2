@@ -2,13 +2,13 @@ package ua.edu.ucu.collections;
 
 public class Queue {
 
-    Object peek(){
+    Object peek() {
         return 0;
     }
-    Object dequeue(){
+    Object dequeue() {
         return 0;
     }
-    void enqueue(Object e){
+    void enqueue(Object e) {
 
     }
     

@@ -1,13 +1,13 @@
 package ua.edu.ucu.collections;
 
 public class Stack {
-    Object peek(){
+    Object peek() {
         return 0;
     }
-    Object pop(){
+    Object pop() {
         return 0;
     }
-    void pop(Object e){
+    void pop(Object e) {
 
     }
     
