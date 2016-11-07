@@ -1,7 +1,24 @@
 package ua.edu.ucu.collections.immutable;
 
-public class ImmutableLinkedList implements ImmutableList{
 
+
+public class ImmutableLinkedList implements ImmutableList{
+    private Node head;
+    private int listCount;
+
+    public ImmutableLinkedList(){
+        head = new Node(null);
+        listCount = 0;
+    }
+
+    public ImmutableLinkedList(Node head){
+        this.head = head;
+        Node current = this.head;
+        while(current != null){
+            listCount++;
+            current = current.getNext();
+        }
+    }
 
     public ImmutableLinkedList addFirst(Object e) {
         return null;
@@ -70,21 +87,44 @@ public class ImmutableLinkedList implements ImmutableList{
 
     @Override
     public int size() {
-        return 0;
+        int size = 0;
+        Node nN = this.head;
+        while (nN != null){
+            size += 1;
+            nN = nN.getNext();
+        }
+        return size;
     }
 
     @Override
     public ImmutableList clear() {
-        return null;
+        return new ImmutableLinkedList();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return listCount == 0;
     }
 
     @Override
     public Object[] toArray() {
         return new Object[0];
+    }
+
+    public String toString(){
+        String str = "[";
+        if (this.head.getData() != null){
+            str += this.head.getData();
+            while(this.head.getNext()!= null){
+                str += ",";
+                this.head = this.head.getNext();
+                str += this.head.getData();
+            }
+            str += "]";
+        }
+        else{
+            str = "[]";
+        }
+        return str;
     }
 }

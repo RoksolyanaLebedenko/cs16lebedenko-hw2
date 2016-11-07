@@ -18,10 +18,10 @@ public class ImmutableArrayListTest {
     @Test
     public void testAddIndex() {
         ImmutableArrayList nArray = new ImmutableArrayList();
-        Object c[] = new Object[]{1,2,3};
+        Object c[] = new Object[]{};
         nArray.addAll(c);
         ImmutableList actual = nArray.add(0,6);
-        String expResult = "[6, 1, 2, 3]";
+        String expResult = "[6]";
         assertEquals(expResult, actual.toString());
     }
 
@@ -36,11 +36,11 @@ public class ImmutableArrayListTest {
     @Test
     public void testAddAllIndex() {                                                           //!!!!!!!
         ImmutableArrayList nArray = new ImmutableArrayList();
-        Object c[] = new Object[]{1,2,5};
+        Object c[] = new Object[]{1};
         Object old[] = new Object[]{3,4};
         nArray.addAll(c);
-        ImmutableList actual = nArray.addAll(2, old);
-        String expResult = "[1, 2, 3, 4, 5]";
+        ImmutableList actual = nArray.addAll(0, old);
+        String expResult = "[3, 4, 1]";
         assertEquals(expResult, actual.toString());
     }
 
@@ -87,10 +87,10 @@ public class ImmutableArrayListTest {
     @Test
     public void testSize() {
         ImmutableArrayList nArray = new ImmutableArrayList();
-        Object c[] = new Object[]{1,2,3};
+        Object c[] = new Object[]{};
         nArray.addAll(c);
         Object actual = nArray.size();
-        String expResult = "3";
+        String expResult = "0";
         assertEquals(expResult, actual.toString());
     }
 

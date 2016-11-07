@@ -17,11 +17,10 @@ public class ImmutableArrayList implements ImmutableList{
 
     @Override
     public ImmutableList add(Object e) {
-        if (nArray.length - size < 1) {
-            nArray = Arrays.copyOf(nArray, nArray.length+1);
-        }
-        nArray[size++] = e;
-        return new ImmutableArrayList(nArray);
+        Object[] a = new Object[size + 1];
+        System.arraycopy(nArray, 0, a, 0, size);
+        a[size] = e;
+        return new ImmutableArrayList(a);
     }
 
     @Override
@@ -29,37 +28,39 @@ public class ImmutableArrayList implements ImmutableList{
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         } else {
-            nArray = Arrays.copyOf(nArray, nArray.length + 1);
-            System.arraycopy(nArray, index, nArray, index + 1, size - index);
-            nArray[index] = e;
+            Object[] a = new Object[size + 1];
+            System.arraycopy(nArray, 0, a, 0, index);
+            a[index] = e;
+            System.arraycopy(nArray, index, a, index + 1, size - index);
+            return new ImmutableArrayList(a);
         }
-        return new ImmutableArrayList(nArray);
     }
 
     @Override
     public ImmutableList addAll(Object[] c) {
-        for (Object i: c){
-            this.add(i);
-        }
-        return new ImmutableArrayList(nArray);
+        Object[] a = new Object[size + c.length];
+        System.arraycopy(nArray, 0, a, 0, size);
+        System.arraycopy(c, 0, a, size, c.length);
+        return new ImmutableArrayList(a);
     }
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
-        if (index < 0 || index > size()) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         } else {
-            for (Object i: c){
-                nArray = Arrays.copyOf(nArray, nArray.length+1);
-                System.arraycopy(nArray, index, nArray, index + 1, size - index);
-                this.add(i);}
-            size += 1;
+            Object[] a = new Object[size + c.length];
+            System.arraycopy(nArray, 0, a, 0, index);
+            System.arraycopy(c, 0, a, index, c.length);
+            System.arraycopy(nArray, index, a, index + c.length,
+                    size - index);
+            return new ImmutableArrayList(a);
         }
-        return new ImmutableArrayList(nArray);
+
     }
 
     @Override
-    public Object get(int index) throws ArrayIndexOutOfBoundsException {
+    public Object get(int index) {
         if (size <= index) {
             throw new IndexOutOfBoundsException();
         } else {
@@ -76,7 +77,8 @@ public class ImmutableArrayList implements ImmutableList{
         else {
             Object[] nA = new Object[nArray.length - 1];
             System.arraycopy(nArray, 0, nA, 0, index);
-            System.arraycopy(nArray, index + 1, nA, index, this.size() - 1 - index);
+            System.arraycopy(nArray, index + 1, nA, index,
+                    this.size() - 1 - index);
             return new ImmutableArrayList(nA);
         }
     }

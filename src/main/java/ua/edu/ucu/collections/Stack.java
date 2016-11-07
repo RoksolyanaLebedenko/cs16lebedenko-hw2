@@ -3,7 +3,11 @@ package ua.edu.ucu.collections;
 import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
 
 public class Stack {
-    private ImmutableLinkedList newStack = new ImmutableLinkedList();
+    ImmutableLinkedList lList;
+
+    public Stack() {
+        lList = new ImmutableLinkedList();
+    }
 
     Object peek() {
         return 0;
@@ -14,7 +18,7 @@ public class Stack {
     }
 
     void pop(Object e) {
-        newStack.addLast(e);
+
     }
     
 }
