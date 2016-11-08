@@ -3,65 +3,63 @@ package ua.edu.ucu.collections.immutable;
 
 import java.util.Arrays;
 
-public class ImmutableArrayList implements ImmutableList{
+public class ImmutableArrayList implements ImmutableList {
     private int size = 0;
-    private Object nArray[];
+    private Object[] nArray;
 
     public ImmutableArrayList(Object[] nArray) {
         this.nArray = nArray;
     }
 
     public ImmutableArrayList() {
-        nArray = new Object[1];
+        nArray = new Object[0];
     }
 
     @Override
     public ImmutableList add(Object e) {
-        Object[] a = new Object[size + 1];
-        System.arraycopy(nArray, 0, a, 0, size);
-        a[size] = e;
-        return new ImmutableArrayList(a);
+        Object [] nA = new Object[nArray.length + 1];
+        System.arraycopy(nArray, 0, nA, 0, nArray.length);
+        nA[nArray.length] = e;
+        return new ImmutableArrayList(nA);
     }
 
     @Override
     public ImmutableList add(int index, Object e) {
-        if (index < 0 || index > size) {
+        if (nArray.length < index){
             throw new IndexOutOfBoundsException();
-        } else {
-            Object[] a = new Object[size + 1];
-            System.arraycopy(nArray, 0, a, 0, index);
-            a[index] = e;
-            System.arraycopy(nArray, index, a, index + 1, size - index);
-            return new ImmutableArrayList(a);
         }
+        Object [] nA = new Object[ nArray.length + 1];
+        System.arraycopy(nArray, 0, nA, 0, index);
+        nA[index] = e;
+        System.arraycopy(nArray, index, nA, index + 1,  nArray.length - index);
+        return new ImmutableArrayList(nA);
     }
 
     @Override
     public ImmutableList addAll(Object[] c) {
-        Object[] a = new Object[size + c.length];
-        System.arraycopy(nArray, 0, a, 0, size);
-        System.arraycopy(c, 0, a, size, c.length);
-        return new ImmutableArrayList(a);
+        Object [] nA = new Object[nArray.length +c.length];
+        System.arraycopy(nArray, 0, nA, 0, nArray.length);
+        System.arraycopy(c, 0, nA, nArray.length, c.length);
+        return new ImmutableArrayList(nA);
     }
+
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
-        if (index < 0 || index > size) {
+        if (nArray.length < index){
             throw new IndexOutOfBoundsException();
-        } else {
-            Object[] a = new Object[size + c.length];
-            System.arraycopy(nArray, 0, a, 0, index);
-            System.arraycopy(c, 0, a, index, c.length);
-            System.arraycopy(nArray, index, a, index + c.length,
-                    size - index);
-            return new ImmutableArrayList(a);
         }
-
+        Object [] nA = new Object[nArray.length + c.length];
+        System.arraycopy(nArray, 0, nA, 0, index);
+        System.arraycopy(c, 0, nA, index , c.length);
+        System.arraycopy(nArray, index, nA,
+                index+c.length,nArray.length - index);
+        return new ImmutableArrayList(nA);
     }
 
     @Override
     public Object get(int index) {
-        if (size <= index) {
+        if (nArray.length <= index) {
             throw new IndexOutOfBoundsException();
         } else {
             return nArray[index];
@@ -71,21 +69,21 @@ public class ImmutableArrayList implements ImmutableList{
 
     @Override
     public ImmutableList remove(int index)  {
-        if (size < index){
+        if (nArray.length < index){
             throw new IndexOutOfBoundsException();
         }
         else {
             Object[] nA = new Object[nArray.length - 1];
             System.arraycopy(nArray, 0, nA, 0, index);
             System.arraycopy(nArray, index + 1, nA, index,
-                    this.size() - 1 - index);
+                    nArray.length - 1 - index);
             return new ImmutableArrayList(nA);
         }
     }
 
     @Override
     public ImmutableList set(int index, Object e) {
-        if (size < index) {
+        if (nArray.length < index) {
             throw new IndexOutOfBoundsException();
         }
         else {
@@ -93,6 +91,7 @@ public class ImmutableArrayList implements ImmutableList{
             return new ImmutableArrayList(nArray);
         }
     }
+
 
     @Override
     public int indexOf(Object e) {
@@ -104,10 +103,9 @@ public class ImmutableArrayList implements ImmutableList{
         return -1;
     }
 
-
     @Override
     public int size() {
-        return size;
+        return nArray.length;
     }
 
     @Override
@@ -119,12 +117,12 @@ public class ImmutableArrayList implements ImmutableList{
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return nArray.length == 0;
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return nArray;
     }
 
     @Override
